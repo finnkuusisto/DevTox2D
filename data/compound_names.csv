@@ -1,0 +1,46 @@
+drug,name
+t1,Benzene
+t2,Bioallethrin
+t3,Diazinon
+t4,Hydroxyurea
+t5,Maneb
+t6,Monosodium glutamate
+t7,Permethrin
+t8,L-phenylalanine
+t9,Propylthiouracil
+t10,PD166866
+t11,Cytosine Beta-D-arabinofuranoside
+t12,Dioxin
+t13,Arsenic
+t14,Cadmium
+t15,5-Fluorouracil
+t16,Busulfan
+t17,(trans) Retinoic acid
+t18,Thalidomide
+t19,Amiodarone
+t20,Carbamazepine
+t21,Accutane or Isotretinoin
+t22,Lead acetate
+t23,Bis-I
+t24,K252a
+t25,Okadaic acid
+t26,U0126
+t27,Vincristine
+t28,2-Imidazolidinethione
+t29,Dexamethasone
+c1,Acetaminophen
+c2,Amoxicillin
+c3,Glyphosate
+c4,Saccharin
+c5,Sorbitol
+c6,Sucrose
+c7,Fructose
+c8,PVP
+c9,PEG 3350
+c10,Ibuprofen
+c11,Glycerol
+c12,Glucosamine
+c13,Aspirin
+c14,Ficoll 400
+c15,Naproxen sodium
+c16,DMSO
