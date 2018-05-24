@@ -7,7 +7,7 @@ These are the gene expression profile datasets collected from 3D and 2D human ne
 In the 2D tissue model dataset, sample names follow two different patterns for the toxic and non-toxic compound exposures:
 
 - `D<num_days_exposure>-C<compound_id_number>` for the non-toxic compounds
-- `D<num_days_exposure>Hi-<compound_id_number> for the toxic compounds
+- `D<num_days_exposure>Hi-<compound_id_number>` for the toxic compounds
 
 For example, the sample name `D39-C15` corresponds with the non-toxic compound `c15` at 39 days of exposure. The sample name `D27Hi-4` corresponds with the toxic compound `t4` at 27 days of exposure.
 
@@ -25,7 +25,7 @@ This file contains the ground truth labels (toxic vs non-toxic) for each of the 
 ### compound_names.csv
 This file contains a map between compound IDs and the actual compound names.
 
-### Feature Selection Directories
+## Feature Selection Directories
 These directories contain the precomputed per-fold feature selection results from the paper. The filenames contain information regarding the feature selection algorithm used and number of features selected. Filenames contain the tokens `l1lr`, `minfo`, and `rfe`, which correspond to L1 regularized logistic regression (lasso), mutual information, and recursive feature elimination respectively. Filenames also contain a token that specifies the number of features selected, such as `k300` to indicate 300 features selected.
 
 Each file contains genes selected on a per-fold basis according to leave-one-compound-out cross-validation. Each line in the file follows this format:
