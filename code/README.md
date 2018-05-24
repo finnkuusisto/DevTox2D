@@ -1,45 +1,62 @@
 # DevTox2D Code
 These scripts run four different common off-the-shelf machine learning algorithms (random forest, logistic regression, linear SVM, and multinomial Naive Bayes) on the two different expression datasets included in this repository. Additionally, the scripts run three different common off-the-shelf feature selection algorithms to be used in combination with the aforementioned prediction algorithms. All use leave-one-compound-out cross validation.
+
 *Please excuse the extensive code duplication.*
 
 ## 2D Algorithm Scripts
 ### Basic Algorithms
 There are four main scripts that run the basic algorithms on the expression data from the 2D tissue models:
-`2d_days_vs_days_loo_inforf.py` for random forest using an infogain splitting criterion
-`2d_days_vs_days_loo_l2logreg.py` for logistic regression using L2 regularization
-`2d_days_vs_days_loo_linsvm.py` for linear SVM
-`2d_days_vs_days_loo_multinb.py` for multinomial Naive Bayes
+
+- `2d_days_vs_days_loo_inforf.py` for random forest using an infogain splitting criterion
+- `2d_days_vs_days_loo_l2logreg.py` for logistic regression using L2 regularization
+- `2d_days_vs_days_loo_linsvm.py` for linear SVM
+- `2d_days_vs_days_loo_multinb.py` for multinomial Naive Bayes
 
 All of these scripts have the following command line call signature:
-`python 2d_days_vs_days_loo_x.py <expression_file> <hi_lo> <train_days_list> <test_days_list>`
+```
+python 2d_days_vs_days_loo_x.py <expression_file> <hi_lo> <train_days_list> <test_days_list>
+```
+
 Where the arguments mean:
-`<expression_file>` this is the path to the expression data file (see data directory)
-`<hi_lo>` this will always be `hi` for the purposes of this work
-`<train_days_list>` this is a comma-separated list of compound exposure days to include in the training set
-`<test_days_list>` this is a comma-separate list of compound exposure days to include in the testing set
+
+- `<expression_file>` this is the path to the expression data file (see data directory)
+- `<hi_lo>` this will always be `hi` for the purposes of this work
+- `<train_days_list>` this is a comma-separated list of compound exposure days to include in the training set
+- `<test_days_list>` this is a comma-separate list of compound exposure days to include in the testing set
 
 For example, the following is an acceptable call:
-`python 2d_days_vs_days_loo_linsvm.py ../data/expression_2d.csv hi 1,2 3,4`
+```
+python 2d_days_vs_days_loo_linsvm.py ../data/expression_2d.csv hi 1,2 3,4
+```
 This runs a linear SVM on the provided expression data, training the model (using leave-one-compound_out cross-validation) on the data from compound exposure lengths of 1 and 2 days, and then testing the model on the data from compound exposure lengths of 3 and 4 days.
 
 ### Basic Algorithms with Feature Selection
 These are the same four algorithm scripts mentioned above with the addition of one argument to specify selected features for each fold (see data directory README). That is, these scripts don't do the feature selection themselves but instead accept precomputed selected features. The corresponding script names for each algorithm are the same with `_spec_selk.py` at the end.
 
 All of the scripts have the following command line call signature:
-`python 2d_days_vs_days_loo_x.py <expression_file> <hi_lo> <feature_selection_file> <train_days_list> <test_days_list>`
+```
+python 2d_days_vs_days_loo_x.py <expression_file> <hi_lo> <feature_selection_file> <train_days_list> <test_days_list>
+```
+
 Where the new argument as compared to previously mentioned means:
-`<feature_selection_file>` this is the path to the file containing selected features per fold (see data directory)
+
+- `<feature_selection_file>` this is the path to the file containing selected features per fold (see data directory)
 
 ### Feature Selection Algorithms
 There are three scripts that precompute selected features for each leave-one-compound-out cross-validation fold for the 2D tissue models:
-`2d_dump_days_vs_days_loo_selk_l1lr_genes.py` for feature selection by L1 regularized logistic regression (Lasso)
-`2d_dump_days_vs_days_loo_selk_minfo_genes.py` for feature selection by mutual information
-`2d_dump_days_vs_days_loo_selk_rfe_genes.py` for feature selection by recursive feature elimination
+
+- `2d_dump_days_vs_days_loo_selk_l1lr_genes.py` for feature selection by L1 regularized logistic regression (Lasso)
+- `2d_dump_days_vs_days_loo_selk_minfo_genes.py` for feature selection by mutual information
+- `2d_dump_days_vs_days_loo_selk_rfe_genes.py` for feature selection by recursive feature elimination
 
 All of these scripts have the following command line call signature:
-`python 2d_days_vs_days_loo_x.py <expression_file> <hi_lo> <train_days_list> <test_days_list> <num_features>`
+```
+python 2d_days_vs_days_loo_x.py <expression_file> <hi_lo> <train_days_list> <test_days_list> <num_features>
+```
+
 Where the new argument as compared to the basic algorithms is:
-`<num_features>` this is the number of features to select for each cross-validation fold
+
+- `<num_features>` this is the number of features to select for each cross-validation fold
 
 This writes output to standard out in the format of the per-fold feature selection files described in the data directory.
 
