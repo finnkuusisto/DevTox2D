@@ -1,9 +1,11 @@
 # DevTox2D Code
-These scripts run four different common off-the-shelf machine learning algorithms (random forest, logistic regression, linear SVM, and multinomial Naive Bayes) on the two different expression datasets included in this repository. Additionally, the scripts run three different common off-the-shelf feature selection algorithms to be used in combination with the aforementioned prediction algorithms. All use leave-one-compound-out cross validation.
+These scripts run four different common off-the-shelf machine learning algorithms (random forest, logistic regression, linear SVM, and multinomial Naive Bayes) on the two different expression datasets included in this repository. Additionally, the scripts run three different common off-the-shelf feature selection algorithms to be used in combination with the aforementioned prediction algorithms (Lasso, mutual information, and recursive feature elimination). All use leave-one-compound-out cross validation.
 
 *Please excuse the extensive code duplication.*
 
 ## 2D Algorithm Scripts
+These scripts all pertain to running algorithms on the 2D tissue model expression data (see data directory). `rsem2dcsv.py` is a helper file that these scripts use to load the expression data.
+
 ### Basic Algorithms
 There are four main scripts that run the basic algorithms on the expression data from the 2D tissue models:
 
@@ -51,7 +53,7 @@ There are three scripts that precompute selected features for each leave-one-com
 
 All of these scripts have the following command line call signature:
 ```
-python 2d_days_vs_days_loo_x.py <expression_file> <hi_lo> <train_days_list> <test_days_list> <num_features>
+python 2d_dump_days_vs_days_loo_selk_x.py <expression_file> <hi_lo> <train_days_list> <test_days_list> <num_features>
 ```
 
 Where the new argument as compared to the basic algorithms is:
@@ -61,7 +63,54 @@ Where the new argument as compared to the basic algorithms is:
 This writes output to standard out in the format of the per-fold feature selection files described in the data directory.
 
 ## 3D Algorithm Scripts
-TODO
+These scripts all pertain to running algorithms on the 3D tissue model expression data (see data directory) and are analogous to those described above. `rsemcsv.py` is a helper file that these scripts use to load the expression data.
+
+### Basic Algorithms
+Just as with the scripts for the 2D tissue models, there are four main scripts that run the basic algorithms on the expression data from the 3D tissue models. They are analogously named to the 2D scripts mentioned above.
+
+All of these scripts have the following command line call signature:
+```
+python 3d_days_vs_days_loo_x.py <expression_file> <label_file> <train_days_list> <test_days_list>
+```
+
+Where the arguments mean:
+
+- `<expression_file>` this is the path to the expression data file (see data directory)
+- `<label_file>` this is the path to the ground truth label file (see data directory)
+- `<train_days_list>` this is a comma-separated list of compound exposure days to include in the training set
+- `<test_days_list>` this is a comma-separate list of compound exposure days to include in the testing set
+
+For example, the following is an acceptable call:
+```
+python 3d_days_vs_days_loo_linsvm.py ../data/expression_2d.csv ../data/compound_labels.csv 1,2 3,4
+```
+
+### Basic Algorithms with Feature Selection
+Again, as with the 2D scripts, these are the same four algorithm scripts mentioned above with the addition of one argument to specify selected features for each fold (see data directory README). The corresponding script names for each algorithm are the same with `_spec_selk.py` at the end.
+
+All of the scripts have the following command line call signature:
+```
+python 3d_days_vs_days_loo_x.py <expression_file> <label_file> <feature_selection_file> <train_days_list> <test_days_list>
+```
+
+Where the new argument as compared to previously mentioned means:
+
+- `<feature_selection_file>` this is the path to the file containing selected features per fold (see data directory)
+
+### Feature Selection Algorithms
+There are again three scripts that precompute selected features for each leave-one-compound-out cross-validation fold for the 3D tissue models. They are analogously named to the 2D scripts mentioned above.
+
+All of these scripts have the following command line call signature:
+```
+python 3d_dump_days_vs_days_loo_selk_x.py <expression_file> <label_file> <train_days_list> <test_days_list> <num_features>
+```
+
+Where the new argument as compared to the basic algorithms is:
+
+- `<num_features>` this is the number of features to select for each cross-validation fold
+
+This writes output to standard out in the format of the per-fold feature selection files described in the data directory.
+
 
 ## Interpreting Results
 The output of the basic algorithm scripts (2D and 3D, with and without feature selection) goes to standard out. Most of the initial output is related to predictions it makes at each fold of the cross-validation and can be ignored, but the last six lines are what users will be most interested in. The following is an example of the last six lines:
